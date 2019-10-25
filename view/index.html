@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	</head>
+<body>
+
+<h2>This is a mimic TinyURL</h2>
+<div>
+<form id="urlForm" action="/url" method="post">
+	<label>URL:</label><br>
+  <textarea rows="5" id="url" name="url"></textarea>
+  <br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>If you click the "Submit" button, the tinyURL is generated.</p>
+<p id="generatedUrl"></p>
+</div>
+<script type='text/javascript'>
+    /* attach a submit handler to the form */
+    $('#urlForm').submit(function(event){
+	event.preventDefault(); //prevent default action
+	var post_url = $(this).attr("action"); //get form action url
+	var form_data = $(this).serialize(); //Encode form elements for submission
+	    $.post( post_url, form_data, function( response){
+		    $.each( response, function(key, val) {
+			//$("#generatedUrl").html(val); //append results to element
+			    $('<a>',{
+				    text:val,
+    				href:val,
+				target:"_blank" 
+				}).append("<br/>").appendTo('#generatedUrl');
+			$("#generatedUrl").css("font-weight","Bold");
+		    });
+	});
+});
+</script>
+</body>
+</html>
