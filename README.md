@@ -1,1 +1,1 @@
-# go-test-build
+A simple go based tinyUrl mock
